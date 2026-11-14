@@ -5,7 +5,8 @@ import random
 # random.seed(1)
 
 pygame.init()
-screen = pygame.display.set_mode((1000, 1000))
+res = 50
+screen = pygame.display.set_mode((res,res))
 
 clock = pygame.time.Clock()
 running = True
@@ -75,12 +76,12 @@ class Maze:
 
 maze = Maze(17)
 maze.carve_maze()
-maze_width = 800
-maze_posx = 100
-maze_posy = 100
-border_w = 10
-border_w = border_w // 2
+maze_width = int(0.8 * res)
+maze_posx = int(0.1 * res)
+maze_posy = int(0.1 * res)
+print(maze_width, maze_posx)
 cell_w = maze_width // maze.dim
+print(cell_w)
 
 while running:
     for event in pygame.event.get():
@@ -93,12 +94,10 @@ while running:
             maze.carve_maze()
 
     screen.fill("darkolivegreen")
-    # pygame.draw.rect(screen, "Black", (maze_posx - border_w, maze_posy - border_w, maze_width + border_w, maze_width + border_w), 10)
-
     # RENDER YOUR GAME HERE
 
     pygame.draw.rect(screen, "tan", (0, maze_posy, maze_posx, cell_w))
-    pygame.draw.rect(screen, "tan", (maze_posx + maze_width - 1, maze_posy + maze_width - cell_w, 1000 - maze_posx + maze_width, cell_w))
+    pygame.draw.rect(screen, "tan", (maze_posx + (maze.dim * cell_w), maze_posy + (maze.dim * cell_w) - cell_w, res - maze_posx + maze_width, cell_w))
 
     for i in range(maze.dim):
         for j in range(maze.dim):
